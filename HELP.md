@@ -1,4 +1,4 @@
-# Help for BuildSpec
+# Help for  BuildSpec
 
 https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html#build-spec-ref-example
 
