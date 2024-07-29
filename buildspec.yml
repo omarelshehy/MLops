@@ -35,7 +35,7 @@ phases:
             - echo "proceed with next steps"
             - echo "Packaging the code"
             - zip -r $ARTIFACT_NAME .    # Packages the code into a zip file
-            - echo "Packaging completed"
+            - echo "Packaging completed trial 1"
 
     post_build:
         commands:
