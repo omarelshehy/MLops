@@ -2,10 +2,11 @@ version: 0.2
 
 env:
     variables:
-        MY_AWS_REGION: "ap-south-1"
+        MY_AWS_REGION: "eu-central-1"
+        S3_BUCKET_NAME: "mlops-oe"
+        ARTIFACT_NAME: "app.zip"
 
-
-phases: 
+phases:
     install:
         runtime-versions:
             nodejs: 12
@@ -13,7 +14,7 @@ phases:
             - echo "Running on $MY_AWS_REGION"
             - echo "hey welcome to AWS $name"
             - echo "My code build id is $CODEBUILD_BUILD_ID"
-            - echo "My Golang version is $GOLANG_12_VERSIONGOLANG_12_VERSION"
+            - echo "My Golang version is $GOLANG_12_VERSION"
             - echo "Print Environment Variables"
             - printenv
             - echo "Start the installation process"
@@ -23,6 +24,7 @@ phases:
         commands: 
             - echo "This is the start of Pre-Build phase"
             - echo "Pre-Build phase is now completed"
+
     build:
         commands:
             - echo "we are currently on build phase"
@@ -31,7 +33,18 @@ phases:
             - grep -Fq "AWS Certified DevOps Engineer" index.html
             - echo "Test was successful"
             - echo "proceed with next steps"
+            - echo "Packaging the code"
+            - zip -r $ARTIFACT_NAME .    # Packages the code into a zip file
+            - echo "Packaging completed"
+
     post_build:
         commands:
             - echo "We are currently on post_build phase"
+            - echo "Uploading the artifact to S3"
+            - aws s3 cp $ARTIFACT_NAME s3://$S3_BUCKET_NAME/
+            - echo "Upload completed"
             - echo "post_build phase activity is completed. Moving to Artifacts Phase"
+
+artifacts:
+    files:
+        - $ARTIFACT_NAME
