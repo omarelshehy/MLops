@@ -41,7 +41,7 @@ phases:
         commands:
             - echo "We are currently on post_build phase"
             - echo "Uploading the artifact to S3"
-            - aws s3 cp $ARTIFACT_NAME s3://$S3_BUCKET_NAME/
+            - aws s3 cp $ARTIFACT_NAME s3://$S3_BUCKET_NAME/builds/
             - echo "Upload completed"
             - echo "post_build phase activity is completed. Moving to Artifacts Phase"
 
