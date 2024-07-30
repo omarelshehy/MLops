@@ -1,2 +1,2 @@
 # MLops
-Hello stst omar elshehy
+Hello stst omar
